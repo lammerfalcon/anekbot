@@ -3,9 +3,7 @@ import axios from 'axios'
 export default defineNitroPlugin(() => {
     const url = 'https://discord.com/api/webhooks/1089610761585819739/o96xVqP5wjvJRJL3H9S8PLNldnl0FTqBtps9i9Nc2-n3jkl2Uuy5QSeOQk1MdTeYVXlT'
     setInterval(() => {
-        axios.post(url, {
-            content: 'from plugin in cron',
-        })
+        axios.get('http://localhost:3000')
     }, 10000)
     // cron.schedule('* * * * *', () => {
     //
