@@ -2,7 +2,9 @@ import * as cron from 'node-cron'
 import axios from 'axios'
 export default defineNitroPlugin(() => {
     const url = 'https://discord.com/api/webhooks/1089610761585819739/o96xVqP5wjvJRJL3H9S8PLNldnl0FTqBtps9i9Nc2-n3jkl2Uuy5QSeOQk1MdTeYVXlT'
-
+    axios.post(url, {
+        content: 'from plugin',
+    })
     cron.schedule('* * * * *', () => {
         getJoke().then((res) => {
             axios.post(url, {
