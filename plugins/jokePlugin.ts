@@ -18,4 +18,9 @@ export default defineNitroPlugin(() => {
 
         return `\n \n Question: ${question}\nPunchline: ${punchline}`
     }
+    getJoke().then((res) => {
+        axios.post(url, {
+            content: res,
+        })
+    })
 })
