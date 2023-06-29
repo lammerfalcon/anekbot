@@ -4,8 +4,8 @@ import {Configuration, OpenAIApi} from "openai";
 export default eventHandler(async () => {
 
     const configuration = new Configuration({
-        apiKey: process.env.OPEN_API_KEY,
-        organization: process.env.OPEN_API_ORGANIZATION,
+        apiKey: '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',
+        organization: 'org-1S8O9yE2FnV3NdDqMcRUlxfg',
     });
     const openai = new OpenAIApi(configuration);
     async function getJoke() {
@@ -23,8 +23,11 @@ export default eventHandler(async () => {
         return '```' + response.data.choices[0].text.trim() + '```';
     }
     const joke = await getJoke();
-    axios.post(process.env.DISCORD_WEBHOOK, {
+    axios.post('https://discord.com/api/webhooks/1089610761585819739/o96xVqP5wjvJRJL3H9S8PLNldnl0FTqBtps9i9Nc2-n3jkl2Uuy5QSeOQk1MdTeYVXlT', {
         content: joke
+    })
+    axios.post('https://discord.com/api/webhooks/1089610761585819739/o96xVqP5wjvJRJL3H9S8PLNldnl0FTqBtps9i9Nc2-n3jkl2Uuy5QSeOQk1MdTeYVXlT', {
+        content: 'test'
     })
   return { status: 200, message: joke }
 })
