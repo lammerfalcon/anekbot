@@ -26,14 +26,13 @@ export default defineNitroPlugin(async () => {
     //     await getJoke();
     //     await axios.get('http://localhost:3000/')
     // }
-    setInterval(async () => {
-        await useStorage().setItem('joke',  Math.random().toString() )
-        await axios.get('http://localhost:3000/')
+    setInterval( () => {
+        axios.get('http://localhost:3000/')
     }, 5000)
-    cron.schedule('* * * * *', async () => {
-        // await getAndSendJoke()
-        await useStorage().setItem('joke',  Math.random().toString() )
-        await axios.get('http://localhost:3000/')
-
-    })
+    // cron.schedule('* * * * *', async () => {
+    //     // await getAndSendJoke()
+    //     await useStorage().setItem('joke',  Math.random().toString() )
+    //     await axios.get('http://localhost:3000/')
+    //
+    // })
 })
