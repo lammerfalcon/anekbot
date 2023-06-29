@@ -1,17 +1,14 @@
 import axios from "axios";
-import {Configuration, OpenAIApi} from "openai";
 import * as cron from "node-cron";
+import {openai} from "../openAi";
 
 export default defineNitroPlugin(async () => {
-    await useStorage().setItem('joke',  'joke' )
+    console.log('here')
+    await getJoke();
+    console.log('after')
 
-    const configuration = new Configuration({
-        apiKey: process.env.OPEN_API_KEY,
-        organization: process.env.OPEN_API_ORGANIZATION,
-    });
-    const openai = new OpenAIApi(configuration);
     async function getJoke() {
-        const prompt = "Напиши анекдот про разработчиков(про бекендера или фронтендера или девопса или тестировщкиа или всех вместе или по парам, без разницы, тематика шутко должна быть про разработку )"; // Начальный текст для получения анекдота
+        const prompt = "Напиши анекдот про разработчиков(про бекендера или фронтендера или девопса или тестировщкиа или всех вместе или по парам, без разницы, тематика шутко должна быть про разработку )(ищи анекдоты которые хорошо транспонируются на русский язык - твой перевод не всегда корректно на русской речи выглядит)"; // Начальный текст для получения анекдота
         const maxTokens = 1000; // Максимальное количество токенов в ответе (длина анекдота)
         const temperature = 1; // Коэффициент разнообразия (чем выше, тем более случайный будет ответ)
 
@@ -22,15 +19,22 @@ export default defineNitroPlugin(async () => {
             temperature: temperature,
             n: 1,
         });
+        console.log('inside')
+        const joke = '```' + response.data.choices[0].text.trim() + '```';
+        useStorage().setItem('joke',  joke )
         return '```' + response.data.choices[0].text.trim() + '```';
     }
     const getAndSendJoke = async () => {
-        // const joke = await getJoke();
-        await useStorage().setItem('joke',  'joke' )
+        console.log('here')
+        await getJoke();
         await axios.get('http://localhost:3000/')
     }
-    cron.schedule('* * * * *', async () => {
-        await getAndSendJoke()
-
-    })
+    setInterval(() => {
+        console.log('here')
+        getAndSendJoke()
+    }, 1000 * 15)
+    // cron.schedule('* * * * *', async () => {
+    //     await getAndSendJoke()
+    //
+    // })
 })
