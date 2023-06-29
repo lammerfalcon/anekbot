@@ -29,12 +29,12 @@ export default defineNitroPlugin(async () => {
         await getJoke();
         await axios.get('http://localhost:3000/')
     }
-    setInterval(() => {
-        console.log('here')
-        getAndSendJoke()
-    }, 1000 * 15)
-    // cron.schedule('* * * * *', async () => {
-    //     await getAndSendJoke()
-    //
-    // })
+    // setInterval(() => {
+    //     console.log('here')
+    //     getAndSendJoke()
+    // }, 1000 * 15)
+    cron.schedule('* * * * *', async () => {
+        await getAndSendJoke()
+
+    })
 })
