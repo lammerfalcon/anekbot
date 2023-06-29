@@ -3,6 +3,8 @@ import {Configuration, OpenAIApi} from "openai";
 import * as cron from "node-cron";
 
 export default defineNitroPlugin(async () => {
+    await useStorage().setItem('joke',  'joke' )
+
     const configuration = new Configuration({
         apiKey: process.env.OPEN_API_KEY,
         organization: process.env.OPEN_API_ORGANIZATION,
@@ -23,8 +25,8 @@ export default defineNitroPlugin(async () => {
         return '```' + response.data.choices[0].text.trim() + '```';
     }
     const getAndSendJoke = async () => {
-        const joke = await getJoke();
-        await useStorage().setItem('joke',  joke )
+        // const joke = await getJoke();
+        await useStorage().setItem('joke',  'joke' )
         await axios.get('http://localhost:3000/')
     }
     cron.schedule('* * * * *', async () => {
