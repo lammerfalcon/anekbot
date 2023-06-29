@@ -44,5 +44,5 @@ export default defineNitroPlugin(async () => {
 
     };
     getAndSendJoke();
-setInterval(getAndSendJoke, 1000 * 60);
+setInterval(getAndSendJoke, 1000 * 10);
 });
